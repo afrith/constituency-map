@@ -3,7 +3,8 @@ import { MapContainer, TileLayer, GeoJSON, Popup } from 'react-leaflet'
 import type { Map as LeafletMap, LeafletMouseEventHandlerFn, StyleFunction, LatLng } from 'leaflet'
 import type { Topology } from 'topojson-specification'
 import * as topojson from 'topojson-client'
-import type { FeatureCollection, Feature, MultiPolygon } from 'geojson'
+import type { ConstProperties, ConstFeature, ConstCollection } from './types'
+import PopupContents from './PopupContents'
 
 interface MapProps {
   topology: Topology
@@ -14,14 +15,6 @@ const partyColors: Record<string, string> = {
   DA: '#377eb8',
   IFP: '#e41a1c',
   MK: '#ff7f00'
-}
-
-interface ConstProperties {
-  code: string
-  name: string
-  regpop: string
-  votes: Record<string, string>
-  winner: string
 }
 
 const styleFn: StyleFunction<ConstProperties> = (feature) => feature != null
@@ -39,13 +32,13 @@ export default function Map (props: MapProps): JSX.Element {
   const { topology } = props
 
   const features = useMemo(
-    () => topojson.feature(topology, topology.objects.constituencies) as FeatureCollection<MultiPolygon, ConstProperties>,
+    () => topojson.feature(topology, topology.objects.constituencies) as ConstCollection,
     [topology]
   )
 
   const [map, setMap] = useState<LeafletMap | null>(null)
   const [popupPos, setPopupPos] = useState<LatLng | null>(null)
-  const [popupFeature, setPopupFeature] = useState<Feature<MultiPolygon, ConstProperties> | null>(null)
+  const [popupFeature, setPopupFeature] = useState<ConstFeature | null>(null)
 
   useEffect(() => {
     if (map != null) {
@@ -55,7 +48,7 @@ export default function Map (props: MapProps): JSX.Element {
 
   const handleClick: LeafletMouseEventHandlerFn = (event) => {
     if (event.propagatedFrom?.feature == null) return
-    const feature = event.propagatedFrom.feature as Feature<MultiPolygon, ConstProperties>
+    const feature = event.propagatedFrom.feature as ConstFeature
     setPopupPos(event.latlng)
     setPopupFeature(feature)
   }
@@ -67,8 +60,8 @@ export default function Map (props: MapProps): JSX.Element {
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
       <GeoJSON data={features} style={styleFn} eventHandlers={{ click: handleClick }} />
-      {(popupPos != null) && (
-        <Popup position={popupPos}>{popupFeature?.properties.name}</Popup>
+      {(popupPos != null && popupFeature != null) && (
+        <Popup position={popupPos}><PopupContents feature={popupFeature} /></Popup>
       )}
     </MapContainer>
   )
