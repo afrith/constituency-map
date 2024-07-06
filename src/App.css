@@ -1,0 +1,12 @@
+html, body, div#root, div.container, div.container-fluid { 
+  height: 100%;
+}
+
+div.container, div.container-fluid {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.leaflet-container {
+  height: 100%;
+}
