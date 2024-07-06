@@ -11,7 +11,16 @@ const queryClient = new QueryClient()
 export default function App (): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <Main />
+      <Container fluid>
+        <div className='d-flex flex-column' style={{ height: '100%' }}>
+          <div>
+            <h2>Hypothetical demarcation of South Africa into single-member electoral districts</h2>
+          </div>
+          <div style={{ flexGrow: 1 }}>
+            <Main />
+          </div>
+        </div>
+      </Container>
     </QueryClientProvider>
   )
 }
@@ -34,40 +43,25 @@ function Main (): JSX.Element {
 
   if (error != null) {
     return (
-      <Container>
-        <Alert variant='danger'>
-          Error: {error.toString()}
-        </Alert>
-      </Container>
+      <Alert variant='danger'>
+        Error: {error.toString()}
+      </Alert>
     )
   }
 
   if (isPending) {
     return (
-      <Container>
-        <div className='d-flex flex-column justify-content-center' style={{ height: '100%' }}>
-          <ProgressBar
-            animated
-            min={0}
-            max={1}
-            now={progress}
-            label={`Loading: ${Math.round(progress * 100)}%`}
-          />
-        </div>
+      <Container className='py-4'>
+        <ProgressBar
+          animated
+          min={0}
+          max={1}
+          now={progress}
+          label={`Loading: ${Math.round(progress * 100)}%`}
+        />
       </Container>
     )
   }
 
-  return (
-    <Container fluid>
-      <div className='d-flex flex-column' style={{ height: '100%' }}>
-        <div>
-          <h2>Hypothetical demarcation of South Africa into single-member electoral districts</h2>
-        </div>
-        <div style={{ flexGrow: 1 }}>
-          <Map topology={data as Topology} />
-        </div>
-      </div>
-    </Container>
-  )
+  return <Map topology={data as Topology} />
 }
