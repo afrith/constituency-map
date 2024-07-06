@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react'
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { Alert, Container, ProgressBar } from 'react-bootstrap'
+import Layout from './Layout'
 import fetchProgress from './fetchProgress'
 import Map from './Map'
 import type { Topology } from 'topojson-specification'
@@ -11,16 +12,9 @@ const queryClient = new QueryClient()
 export default function App (): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <Container fluid>
-        <div className='d-flex flex-column' style={{ height: '100%' }}>
-          <div>
-            <h2>Hypothetical demarcation of South Africa into single-member electoral districts</h2>
-          </div>
-          <div style={{ flexGrow: 1 }}>
-            <Main />
-          </div>
-        </div>
-      </Container>
+      <Layout>
+        <Main />
+      </Layout>
     </QueryClientProvider>
   )
 }
