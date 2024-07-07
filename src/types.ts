@@ -3,8 +3,8 @@ import type { FeatureCollection, Feature, MultiPolygon } from 'geojson'
 export interface ConstProperties {
   code: string
   name: string
-  regpop: string
-  votes: Record<string, string>
+  regpop: number
+  votes: Array<[string, number]>
   winner: string
 }
 
