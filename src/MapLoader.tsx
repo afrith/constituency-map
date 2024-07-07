@@ -2,7 +2,7 @@ import './App.css'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Alert, Container, ProgressBar } from 'react-bootstrap'
-import fetchProgress from './fetchProgress'
+import axios from 'axios'
 import Map from './Map'
 import type { Topology } from 'topojson-specification'
 
@@ -12,12 +12,15 @@ export default function MapLoader (): JSX.Element {
   const { isPending, error, data } = useQuery({
     queryKey: ['smd.topo'],
     queryFn: async () => {
-      for await (const { progress, result } of fetchProgress('/smd.topo.json')) {
-        setProgress(progress)
-        if (result != null) {
-          return result as Topology
-        }
+      const response = await axios({
+        method: 'GET',
+        url: '/smd.topo.json',
+        onDownloadProgress: (event) => { setProgress(event.loaded / 1339761) }
+      })
+      if (response.status >= 300) {
+        throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
       }
+      return response.data
     },
     staleTime: Infinity
   })
