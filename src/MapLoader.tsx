@@ -15,7 +15,7 @@ export default function MapLoader (): JSX.Element {
       const response = await axios({
         method: 'GET',
         url: '/smd.topo.json',
-        onDownloadProgress: (event) => { setProgress(event.loaded / 1339761) }
+        onDownloadProgress: (event) => { setProgress(event.loaded / (event.total ?? 1339761)) }
       })
       if (response.status >= 300) {
         throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
