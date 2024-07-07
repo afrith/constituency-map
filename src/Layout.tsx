@@ -7,7 +7,7 @@ export default function Layout ({ children }: PropsWithChildren): JSX.Element {
       <div className='d-flex flex-column h-100'>
         <div className='d-none d-md-flex flex-row align-items-baseline justify-content-between'>
           <h2>
-            Hypothetical demarcation of South Africa into single-member constituencies
+            Imagining single-member constituency elections in South Africa
           </h2>
           <div className='ms-4 more-info'>
             <a target='_blank' href='https://adrian.frith.dev/single-member-constituencies/' rel='noreferrer'>more info</a>
@@ -19,7 +19,7 @@ export default function Layout ({ children }: PropsWithChildren): JSX.Element {
 
         <div className='d-block d-md-none flex-column align-items-start'>
           <h2>
-            Hypothetical demarcation of South Africa into single-member constituencies
+            Imagining single-member constituency elections in South Africa
           </h2>
           <div className='mb-2 d-flex flex-row align-items-baseline justify-content-between'>
             <div className='more-info'>
