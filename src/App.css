@@ -7,6 +7,12 @@ div.container, div.container-fluid {
   padding-bottom: 12px;
 }
 
+.author {
+  text-wrap: nowrap;
+  font-size: 16pt;
+  font-style: italic;
+}
+
 .leaflet-container {
   height: 100%;
 }
