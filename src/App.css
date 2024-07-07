@@ -10,3 +10,17 @@ div.container, div.container-fluid {
 .leaflet-container {
   height: 100%;
 }
+
+.popup-vote-table {
+  max-height: 250px; 
+  overflow: scroll;
+}
+
+.popup-vote-table .table-head {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.num-col {
+  text-align: right;
+}
