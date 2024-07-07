@@ -61,7 +61,7 @@ export default function Map (props: MapProps): JSX.Element {
       />
       <GeoJSON data={features} style={styleFn} eventHandlers={{ click: handleClick }} />
       {(popupPos != null && popupFeature != null) && (
-        <Popup position={popupPos}><PopupContents feature={popupFeature} /></Popup>
+        <Popup key={popupFeature.id} position={popupPos}><PopupContents feature={popupFeature} /></Popup>
       )}
     </MapContainer>
   )
