@@ -13,8 +13,8 @@ interface MapProps {
 const partyColors: Record<string, string> = {
   ANC: '#4daf4a',
   DA: '#377eb8',
-  IFP: '#e41a1c',
-  MK: '#ff7f00'
+  IFP: '#a65628',
+  MK: '#f781bf'
 }
 
 const styleFn: StyleFunction<ConstProperties> = (feature) => feature != null
